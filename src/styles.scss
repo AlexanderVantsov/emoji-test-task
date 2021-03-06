@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+	font-family: "Roboto";
+	src: url(assets/fonts/Roboto/Roboto-Black.ttf), 
+    url(assets/fonts/Roboto/Roboto-BlackItalic.ttf), 
+    url(assets/fonts/Roboto/Roboto-Bold.ttf), 
+    url(assets/fonts/Roboto/Roboto-BoldItalic.ttf), 
+    url(assets/fonts/Roboto/Roboto-Italic.ttf), 
+    url(assets/fonts/Roboto/Roboto-Light.ttf), 
+    url(assets/fonts/Roboto/Roboto-LightItalic.ttf), 
+    url(assets/fonts/Roboto/Roboto-Medium.ttf), 
+    url(assets/fonts/Roboto/Roboto-MediumItalic.ttf), 
+    url(assets/fonts/Roboto/Roboto-Regular.ttf), 
+    url(assets/fonts/Roboto/Roboto-Thin.ttf), 
+    url(assets/fonts/Roboto/Roboto-ThinItalic.ttf);
+}
+
+html, body, app-root, app-home {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font-family: Roboto;
+    font-weight: normal;
+    background-color: #eaeaea;
+    justify-content: flex-start;
+    align-items: center;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

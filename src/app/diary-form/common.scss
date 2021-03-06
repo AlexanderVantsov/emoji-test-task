@@ -1,0 +1,99 @@
+@import '~@ctrl/ngx-emoji-mart/picker';
+
+//  Colors
+$ui-bg-color: #FFFFFF;
+$ui-text-color: #3E52BE;
+$user-text-color: #224272;
+$user-secondary-text-color: #263238;
+$primary-btn-bg-color: #224272;
+$primary-btn-color: #FFFFFF;
+$placeholder-color: #90A4AE;
+$list-item-bg-color: #F7F8F9;
+
+//  Size
+$ui-width: 395px;
+
+//  Fonts
+@mixin primary-ui-font() {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: capitalize;
+    color: $ui-text-color;
+}
+@mixin secondary-ui-font() {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: capitalize;
+    color: $ui-text-color;
+}
+@mixin user-font() {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: $user-text-color;
+}
+@mixin user-secondary-font() {
+    @include secondary-ui-font();
+    color: $user-secondary-text-color;
+}
+@mixin btn-font() {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: $primary-btn-color;
+}
+.pull-tab, .keyboard, .calendar {
+    height: 24px;
+    width: 24px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    color: $placeholder-color;
+    cursor: pointer;
+}
+.pull-tab {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: -2px;
+    right: 0px;
+    background-image: url(icons/Expand.svg);
+    pointer-events: none;
+}
+.keyboard {
+    background-image: url(icons/keyboard.svg);
+}
+.calendar {
+    background-image: url(icons/calendar.svg);
+}
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 16px;
+    background: $primary-btn-bg-color;
+    border-radius: 18px;
+    border: none;
+    outline: none;
+    @include btn-font();
+    cursor: pointer;
+}
+[hidden] {
+    display: none !important;
+}

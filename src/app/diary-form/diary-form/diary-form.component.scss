@@ -1,0 +1,116 @@
+@import "../common.scss";
+@import '~@ctrl/ngx-emoji-mart/picker';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    position: relative;
+    width: 395px;
+    height: auto;
+    background: $ui-bg-color;
+    border-radius: 10px;
+}
+section {
+    display: flex;
+    position: relative;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 100%;
+    flex: 0 0 auto;
+    margin-bottom: 16px;
+    .label {
+        @include primary-ui-font;
+    }
+    .material-icons {
+        color: $ui-text-color;
+    }
+    textarea {
+        @include user-font;
+        display: inline-block;
+        width: 100%;
+        min-width: 100%;
+        min-height: 95px;
+        background: #FFFFFF;
+        border: 1px solid #F7F8F9;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding: 16px;
+        outline: none;
+
+    }
+    textarea::placeholder {
+        color: $placeholder-color;
+        font-weight: 300;
+    }
+    textarea::-webkit-resizer {
+        display: none;
+    }
+
+}
+
+section.controls {
+    .material-icons {
+        cursor: pointer;
+    }
+}
+
+section.emoji {
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    ngx-emoji {
+        margin: 2px 1px;
+        cursor: pointer;
+    }
+}
+
+section.list {
+
+    flex-flow: column;
+
+    .list-item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        flex: 0 0 auto;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background: $list-item-bg-color;
+        border-radius: 10px;
+        padding: 14px;
+        box-sizing: border-box;
+        margin-bottom: 7px;
+    }
+    .datetime-wrap, .datetime-label {
+        @include secondary-ui-font;
+        display: flex;
+        position: relative;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+        .datetime-label {
+            margin-bottom: 0;
+        }
+        .calendar {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+        }
+        .material-icons {
+            font-size: 14px;
+            cursor: pointer;
+        }
+    }
+    
+    .message-wrap {
+        @include user-secondary-font;
+    }
+    
+
+}

@@ -1,0 +1,48 @@
+<!-- Header section -->
+<section class="header">
+    <span class="label">Your diary</span>
+    <span class="material-icons">arrow_forward</span>
+</section>
+
+<!-- User input section -->
+<section class="user-input">
+    
+    <div class="pull-tab"></div>
+    <textarea placeholder="Write something"></textarea>
+   
+</section>
+
+<!-- Emoji section -->
+<section class="emoji" [hidden]="!open_emoji">
+    
+    <ngx-emoji *ngFor="let em of customEmojis" [isNative]="true" [emoji]="em" [size]="30" (emojiClick)="addEmoji($event)"></ngx-emoji>
+        
+</section>
+
+<!-- Controls section -->
+<section class="controls">
+    <span class="material-icons" [hidden]="open_emoji" (click)="openEmoji()">tag_faces</span>
+    <span class="keyboard" [hidden]="!open_emoji" (click)="hideEmoji()"></span>
+    <button class="btn" (click)="save()">Save</button>
+</section>
+
+<!-- Message list section -->
+<section class="list">
+
+    <span class="list-item" *ngFor="let m of messages">
+        <span class="datetime-wrap">
+            <span class="datetime-label">
+                <span class="calendar"></span>
+                <span class="item-time">{{ m.datetime | date:"h:mm a | MMM d, y" }}</span>
+            </span>
+            <span class="material-icons">
+                more_vert
+            </span>
+        </span>
+        <span class="message-wrap">
+            {{ m.message_text }}
+        </span>
+        
+    </span>
+
+</section>
