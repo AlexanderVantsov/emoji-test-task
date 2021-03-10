@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { from } from 'rxjs';
 import { Message } from '../message';
 
 @Component({
@@ -13,7 +13,7 @@ export class DiaryFormComponent implements OnInit {
 
   public messages: Message[] = [];
   public open_emoji: boolean = false;
-  
+  public usertext: string = "";
 
   ngOnInit(): void {
   }
@@ -27,8 +27,8 @@ export class DiaryFormComponent implements OnInit {
    * Get user input
    */
   getUserInput() {
-    const input = this.elm.nativeElement.querySelector('textarea');
-    if(input) return input.value;
+    const input = this.elm.nativeElement.querySelector('#textinput');
+    if(input) return input.innerHTML;
     return "";
   }
 
@@ -36,8 +36,53 @@ export class DiaryFormComponent implements OnInit {
    * Clear user input emlement
    */
   clearUserInput() {
-    const input = this.elm.nativeElement.querySelector('textarea');
-    if(input) input.value = "";
+    const input = this.elm.nativeElement.querySelector('#textinput');
+    if(input) input.innerHTML = "";
+  }
+
+  /**
+   * Used to define sprite image
+   */
+  getEmojiSet(set: any, sheetSize: any) {
+    //console.log("Set", set);
+    //console.log("Sheet Size", sheetSize);
+    return "/app/diary-form/images/sprite.png";
+  }
+
+  /**
+   * Move cursor to the end of editable element
+   */
+  moveCursorToEnd(el: any) {
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(el);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        if(selection) selection.removeAllRanges();//remove any selections already made
+        if(selection) selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if((document as any).selection)//IE 8 and lower
+    { 
+        range = (document as any).body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(el);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
+  }
+
+  /**
+   * Prevent appearing extra divs on enter key press
+   */
+  filterInputChars($event: any) {
+    //console.log("Input event", $event);
+    if ($event.keyCode === 13) {
+      $event.target.insertAdjacentHTML('beforeend', "<br><br>");
+      this.moveCursorToEnd($event.target);
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -45,10 +90,24 @@ export class DiaryFormComponent implements OnInit {
    */
   addEmoji($event: any) {
     console.log("Emoji event", $event);
-    let em: string = $event.emoji.native;
-    const input = this.elm.nativeElement.querySelector('textarea');
-    input.value = input.value + em;
-    input.focus();
+    let sheetColumns = 58; // Number of columns in emoji sprite
+    const multiply = 100 / (sheetColumns - 1); // Percentage for one column
+    let sheetX = $event.emoji.sheet[0]; //  Define X for required emoji
+    let sheetY = $event.emoji.sheet[1]; //  Define Y fro required emoji
+    let x_pos = multiply * sheetX; // Calc x position
+    let y_pos = multiply * sheetY; // Calc y position
+    //  Prepare emoji html template
+    let em_markup = `<span contenteditable="false" style="width: 16px; height: 16px; display: inline-block; line-heigth: 16px; 
+                            background-image: url(${this.getEmojiSet($event.emoji.set, 64)}); 
+                            background-size: 5800% 5700%; background-position: ${x_pos}% ${y_pos}%;"></span>`;
+    const input = this.elm.nativeElement.querySelector('#textinput');
+    this.usertext = this.usertext + em_markup;
+    //  Add emoji to input text field
+    if(input) {
+      input.insertAdjacentHTML('beforeend', em_markup);
+      this.moveCursorToEnd(input);
+      input.focus();
+    }
   }
 
   /**
@@ -77,5 +136,6 @@ export class DiaryFormComponent implements OnInit {
   hideEmoji() {
     this.open_emoji = false;
   }
+
 
 }

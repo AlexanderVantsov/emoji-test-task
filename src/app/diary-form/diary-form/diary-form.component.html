@@ -8,14 +8,20 @@
 <section class="user-input">
     
     <div class="pull-tab"></div>
-    <textarea placeholder="Write something"></textarea>
-   
+
+    <div id="textinput" contenteditable="true" (keydown)="filterInputChars($event)"></div>
+    
 </section>
 
-<!-- Emoji section -->
+<!-- Emoji section [backgroundImageFn]="getEmojiSet"-->
 <section class="emoji" [hidden]="!open_emoji">
     
-    <ngx-emoji *ngFor="let em of customEmojis" [isNative]="true" [emoji]="em" [size]="30" (emojiClick)="addEmoji($event)"></ngx-emoji>
+    <ngx-emoji *ngFor="let em of customEmojis" 
+        [isNative]="false" 
+        [emoji]="em" 
+        [size]="28"
+        [backgroundImageFn]="getEmojiSet"
+        (emojiClick)="addEmoji($event)"></ngx-emoji>
         
 </section>
 
@@ -39,8 +45,8 @@
                 more_vert
             </span>
         </span>
-        <span class="message-wrap">
-            {{ m.message_text }}
+        <span class="message-wrap" [innerHtml]="m.message_text | bindhtml">
+            
         </span>
         
     </span>

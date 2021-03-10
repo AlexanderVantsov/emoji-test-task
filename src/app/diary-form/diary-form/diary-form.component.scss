@@ -7,10 +7,12 @@
     align-items: flex-start;
     padding: 16px;
     position: relative;
-    width: 395px;
+    max-width: 395px;
+    width: 100%;
     height: auto;
     background: $ui-bg-color;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 section {
     display: flex;
@@ -28,7 +30,7 @@ section {
     .material-icons {
         color: $ui-text-color;
     }
-    textarea {
+    #textinput {
         @include user-font;
         display: inline-block;
         width: 100%;
@@ -40,15 +42,17 @@ section {
         border-radius: 4px;
         padding: 16px;
         outline: none;
-
+        resize: vertical;
+        overflow: auto;
     }
-    textarea::placeholder {
+    #textinput::placeholder {
         color: $placeholder-color;
         font-weight: 300;
     }
-    textarea::-webkit-resizer {
+    #textinput::-webkit-resizer {
         display: none;
     }
+    
 
 }
 
